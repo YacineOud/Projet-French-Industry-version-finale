@@ -433,6 +433,24 @@ elif page == pages[5]:
         )
         caracteristiques_entree.append(caracteristique)
 
+    
+    # Charger le modèle et le mapping de la cible
+    modele = charger_modele()
+    target_mapping = charger_target_mapping()
+    
+    # Préparer les caractéristiques pour la prédiction
+    caracteristiques = np.array([caracteristiques_entree])
+    
+    # Prévoir la classe avec le modèle
+    prediction_encoded = modele.predict(caracteristiques)
+    
+        
+    st.markdown(
+    f"<p style='font-size:24px; font-weight:bold;'>La prédiction du salaire net moyen est : {prediction_encoded[0].round(2)}</p>", 
+    unsafe_allow_html=True
+)        
+
+    
     data_pred = {
             'Variables': ['salaire_cadre_discretise','salaire_employe_discretise','salaire_homme_discretise','salaire_+50_discretise','salaire_+50_femme_discretise','salaire'],
             'Prédiction N°1': [1,0,0,0,0,13.7],
@@ -449,32 +467,6 @@ elif page == pages[5]:
             # Exclure la première ligne du DataFrame
             tab = tab[1:]    
             st.table(tab)
-        
-    
-        
-    # Charger le modèle et le mapping de la cible
-    modele = charger_modele()
-    target_mapping = charger_target_mapping()
-    
-    # Préparer les caractéristiques pour la prédiction
-    caracteristiques = np.array([caracteristiques_entree])
-    
-    # Prévoir la classe avec le modèle
-    prediction_encoded = modele.predict(caracteristiques)
-    
-    st.markdown(
-    f"<p style='font-size:24px; font-weight:bold;'>La prédiction du salaire net moyen est : {prediction_encoded[0].round(2)}</p>", 
-    unsafe_allow_html=True
-)
-
-    # Décoder la prédiction
-    # prediction_decoded = target_mapping[prediction_encoded[0]]
-    
-    # Afficher la prédiction
-    st.markdown(
-        "{prediction_encoded}", 
-        unsafe_allow_html=True
-    )
 
 
 # Page de Conclusion
