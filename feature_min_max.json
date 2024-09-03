@@ -1,0 +1,22 @@
+{
+    "salaire_cadre_discretise": {
+        "min": 0.0,
+        "max": 4.0
+    },
+    "salaire_employe_discretise": {
+        "min": 0.0,
+        "max": 4.0
+    },
+    "salaire_homme_discretise": {
+        "min": 0.0,
+        "max": 4.0
+    },
+    "salaire_+50_discretise": {
+        "min": 0.0,
+        "max": 4.0
+    },
+    "salaire_+50_femme_discretise": {
+        "min": 0.0,
+        "max": 4.0
+    }
+}
