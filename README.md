@@ -17,3 +17,9 @@ A simple Streamlit app showing the GDP of different countries in the world.
    ```
    $ streamlit run streamlit_app.py
    ```
+### Installation de Rust et Cargo
+
+Vous pouvez installer Rust et Cargo en utilisant `rustup` :
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
