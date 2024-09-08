@@ -230,12 +230,12 @@ elif page == pages[2]:
     matrix_corr = px.imshow(salaire_corr.corr().round(2), text_auto=True)
 
 # Mise en forme des annotations avec deux chiffres après la virgule
-    matrix_corr.update_traces(hoverongaps=False)
+    matrix_corr.update_traces(hoverongaps=True)
     matrix_corr.update_layout(title='Matrice de corrélation des salaires',
                           xaxis=dict(title='Variables'),
                           yaxis=dict(title='Variables'),
-                          width=1500,
-                          height=500)
+                          width=1800,
+                          height=800)
 
 # Affichage du graphique avec Streamlit
     st.plotly_chart(matrix_corr)
@@ -340,19 +340,12 @@ elif page == pages[3]:
         plt.xticks([1.2, 2.2, 3.2], ['18-25 ans', '26-50 ans', 'Plus de 50 ans'])
         ax.grid(True)
         st.pyplot(fig)
-
-
-
-
     
     # Titre de la carte
     st.subheader("Carte des Bassins d'Entreprises en France")
     st.image('data/carte bassin.png', use_column_width=True)
 
     
-
-
-
 # Page de Modélisation
 elif page == pages[4]:
     st.header("🧩 Modélisation")
