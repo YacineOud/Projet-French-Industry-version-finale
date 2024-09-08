@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import io
 import warnings
-#import plotly.express as px
+import plotly.express as px
 #import plotly.graph_objects as go
 
 # Rajout le 29/08/24 pour la partie Statistiques
