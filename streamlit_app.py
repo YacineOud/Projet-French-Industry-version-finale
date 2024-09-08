@@ -345,7 +345,7 @@ elif page == pages[3]:
     
     # Titre de la carte
     st.subheader("Carte des Bassins d'Entreprises en France")
-    st.image('https://github.com/YacineOud/Projet-French-Industry-version-finale/blob/638ec5b6b6fbacdf48cf4986653b867239b456ed/data/carte%20bassin.png', use_column_width=True)
+    st.image('data/carte bassin.png', use_column_width=True)
 
     
 
