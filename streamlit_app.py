@@ -185,18 +185,7 @@ elif page == pages[1]:
         st.write(dataframe.describe())
 
     # Affichage des informations en fonction de la page sélectionnée
-    if st.session_state.page == "Etablissement":
-        afficher_info(etablissement, "Etablissement")
-    elif st.session_state.page== "Geographic":
-        afficher_info(geographic, "Geographic")
-    elif st.session_state.page == "Salaire":
-        afficher_info(salaire, "Salaire")
-    elif st.session_state.page == "Population":
-        # Afficher un message pour la page Population
-        st.write("Pas d'import du dataframe Population, ce jeu de données n'est pas utilisé dans notre projet.")
-        # Ajouter un lien vers l'image population.jpg
-        st.image('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/Population.jpg', use_column_width=True)
-    elif st.session_state.page == "Les 6 Règles":
+    if st.session_state.page == "Les 6 Règles":
         # Afficher les 6 règles de qualité de la donnée
         st.subheader("Les 6 règles à respecter pour obtenir des données de bonne qualité : ")
         st.write("""La Data Quality est une manière de gérer les données afin que celles-ci restent viables à travers le temps. 
@@ -209,6 +198,18 @@ elif page == pages[1]:
                 Il faut par exemple faire attention à maintenir une bonne précision des données lorsqu’on veut remplacer des valeurs manquantes.""")
         st.write(""" 5-La disponibilité : les données sont accessibles facilement et rapidement pour les personnes qui en ont besoin.""")
         st.write(""" 6-L’actualité : les données doivent être mises à jour.""")
+    elif st.session_state.page == "Etablissement":
+        afficher_info(etablissement, "Etablissement")
+    elif st.session_state.page== "Geographic":
+        afficher_info(geographic, "Geographic")
+    elif st.session_state.page == "Salaire":
+        afficher_info(salaire, "Salaire")
+    elif st.session_state.page == "Population":
+        # Afficher un message pour la page Population
+        st.write("Pas d'import du dataframe Population, ce jeu de données n'est pas utilisé dans notre projet.")
+        # Ajouter un lien vers l'image population.jpg
+        st.image('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/Population.jpg', use_column_width=True)
+    
 
 
 # Page de Statistiques
