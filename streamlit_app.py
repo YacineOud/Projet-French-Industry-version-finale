@@ -347,10 +347,107 @@ elif page == pages[3]:
     st.subheader("Carte des Bassins d'Entreprises en France")
     
 
-
-    st.write(salaire.columns)
+    etablissement2['CODGEO'] = etablissement2['CODGEO'].str.lstrip('0')
+    etablissement2['CODGEO'] = etablissement2['CODGEO'].str.replace('A', '0').str.replace('B', '0')
     
-    st.write(etablissement2.columns)
+    geographic2 = geographic2.rename(columns={'code_insee': 'CODGEO'})
+    geographic2['CODGEO'] = geographic2['CODGEO'].astype(str)
+    colonnes_a_supprimer = ['chef.lieu_région', 'préfecture', 'numéro_circonscription', 'codes_postaux']
+    geographic2 = geographic2.drop(colonnes_a_supprimer, axis=1)
+    geographic2 = geographic2.drop_duplicates()
+    geographic2.loc[geographic2['CODGEO'] == '61022', 'CODGEO'] = '61483'
+    geographic2 = geographic2[~geographic2['numéro_département'].isin(['975', '976'])]
+    
+    geographic2["longitude"] = geographic2["longitude"].apply(lambda x: str(x).replace(',', '.'))
+    mask = geographic2["longitude"] == '-'
+    geographic2.drop(geographic2[mask].index, inplace=True)
+    geographic2.dropna(subset=["longitude", "latitude"], inplace=True)
+    geographic2["longitude"] = geographic2["longitude"].astype(float)
+    geographic2.drop_duplicates(subset=["CODGEO"], keep="first", inplace=True)
+    
+    paris_lat = geographic2.loc[geographic2["nom_commune"] == "Paris"].iloc[0]["latitude"]
+    paris_lon = geographic2.loc[geographic2["nom_commune"] == "Paris"].iloc[0]["longitude"]
+    
+    # Fonction de calcul de distance (Haversine)
+    def haversine(lon1, lat1, lon2, lat2):
+        lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * asin(sqrt(a))
+        km = 6371 * c
+        return km
+    
+    # Calcul des distances
+    distances = [haversine(row["longitude"], row["latitude"], paris_lon, paris_lat) for index, row in geographic2.iterrows()]
+    geographic2["distance"] = distances
+    
+    # Préparation des données sur les entreprises
+    industry = etablissement2[etablissement2["CODGEO"].apply(lambda x: str(x).isdigit())]
+    industry["CODGEO"] = industry["CODGEO"].astype(int)
+    industry['Micro'] = industry['Nbre_etab_1-5'] + industry['Nbre_etab_6-9']
+    industry['Small'] = industry['Nbre_etab_10-19'] + industry['Nbre_etab_20-49']
+    industry['Medium'] = industry['Nbre_etab_50-99'] + industry['Nbre_etab_100-199']
+    industry['Large_and_Enterprise'] = industry['Nbre_etab_200-499'] + industry['Nbre_etab_+500']
+    industry['Sum'] = industry[['Nbre_etab_1-5', 'Nbre_etab_6-9', 'Nbre_etab_10-19', 'Nbre_etab_20-49', 'Nbre_etab_50-99', 'Nbre_etab_100-199', 'Nbre_etab_200-499', 'Nbre_etab_+500']].sum(axis=1)
+    
+    # Calcul des pourcentages
+    industry['Micro%'] = industry['Micro'] * 100 / industry['Sum']
+    industry['Small%'] = industry['Small'] * 100 / industry['Sum']
+    industry['Medium%'] = industry['Medium'] * 100 / industry['Sum']
+    industry['Large_and_Enterprise%'] = industry['Large_and_Enterprise'] * 100 / industry['Sum']
+    
+    relevant_columns = ['CODGEO', 'LIBGEO', 'REG', 'DEP', 'Sum', 'Micro', 'Small', 'Medium', 'Large_and_Enterprise', 'Micro%', 'Small%', 'Medium%', 'Large_and_Enterprise%']
+    industry = industry[relevant_columns]
+    
+    # Nettoyage des données sur les départements
+    industry['DEP'] = industry['DEP'].str.lstrip('0')
+    industry['DEP'] = industry['DEP'].str.replace('A', '0').str.replace('B', '0')
+    industry["DEP"] = industry["DEP"].astype(int)
+    geographic2["CODGEO"] = geographic2["CODGEO"].astype(int)
+    
+    # Fusionner les données
+    full_data = industry.merge(geographic2, how="left", on="CODGEO")
+    
+    # Calcul des plus gros bassins d'entreprises
+    top_industry = full_data.sort_values(by=["Sum"], ascending=False).head(10)
+    top_industry_names = top_industry["LIBGEO"].values.tolist()
+    top_industry_lons = top_industry["longitude"].values.tolist()
+    top_industry_lats = top_industry["latitude"].values.tolist()
+    
+    # Affichage de la carte avec Basemap
+    fig, ax = plt.subplots(figsize=(20, 20))
+    
+    map = Basemap(projection='lcc', lat_0=46.2374, lon_0=2.375, resolution='h',
+                  llcrnrlon=-4.76, llcrnrlat=41.39, urcrnrlon=10.51, urcrnrlat=51.08)
+    
+    parallels = np.arange(40., 52, 2.)
+    map.drawparallels(parallels, labels=[1, 0, 0, 0], fontsize=10)
+    meridians = np.arange(-6., 10., 2.)
+    map.drawmeridians(meridians, labels=[0, 0, 0, 1], fontsize=10)
+    
+    map.drawcoastlines()
+    map.drawcountries()
+    map.drawmapboundary()
+    map.drawrivers()
+    
+    lons = full_data["longitude"].values.tolist()
+    lats = full_data["latitude"].values.tolist()
+    size = (full_data["Sum"] / 5).values.tolist()
+    
+    x, y = map(lons, lats)
+    map.scatter(x, y, s=size, alpha=0.6, c=size, norm=colors.LogNorm(vmin=1, vmax=max(size)), cmap='hsv')
+    map.colorbar(location="bottom", pad="4%")
+    
+    x1, y1 = map(top_industry_lons, top_industry_lats)
+    map.scatter(x1, y1, c="black")
+    
+    for i in range(len(top_industry_names)):
+        plt.annotate(top_industry_names[i], xy=(map(top_industry_lons[i] + 0.25, top_industry_lats[i])), fontsize=25)
+    
+    plt.title("Les plus gros bassins d'entreprises en France métropolitaine", fontsize=40, fontweight='bold', y=1.05)
+    
+    st.pyplot(fig)
     
 
 
