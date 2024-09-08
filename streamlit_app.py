@@ -213,7 +213,7 @@ elif page == pages[2]:
 
 
 # Page de Data Visualisation
-elif page == pages[2]:
+elif page == pages[3]:
     st.header("📊 Data Visualisation")
 
     st.subheader("Disparité salariale homme/femme")
