@@ -15,11 +15,7 @@ from scipy.stats import shapiro
 import pickle
 import json
 
-from bokeh.plotting import figure
-from bokeh.models import GeoJSONDataSource
-from holoviews import opts
-import holoviews as hv
-from holoviews.operation.datashader import datashade
+
 from math import radians, cos, sin, asin, sqrt
 import matplotlib.colors as colors
 from mpl_toolkits.basemap import Basemap
