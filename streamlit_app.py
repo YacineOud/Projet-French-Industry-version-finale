@@ -6,7 +6,7 @@ import seaborn as sns
 import io
 import warnings
 import plotly.express as px
-import plotly.graph_objects as go
+import mpld3
 
 # Rajout le 29/08/24 pour la partie Statistiques
 import pylab
@@ -216,45 +216,12 @@ elif page == pages[2]:
 elif page == pages[3]:
     st.header("📊 Data Visualisation")
 
-    st.subheader("Disparité salariale homme/femme")
-    
-    # Menu déroulant pour la disparité salariale
-    disparite_options = ["Disparité salariale par catégorie socioprofessionnelle", "Disparité salariale par tranche d'âge"]
-    disparite_choice = st.selectbox("Sélectionnez une visualisation pour la disparité salariale :", disparite_options)
-    
-    # Visualisation en fonction du choix de l'utilisateur pour la disparité salariale
-    if disparite_choice == disparite_options[0]:
-        # Disparité salariale par catégorie socioprofessionnelle
-        categories = ['Cadres', 'Cadres moyens', 'Employés', 'Travailleurs']
-        disparites = [17.60531468314386, 9.887706605652797, 2.472865187964315, 14.680015141858643]
-
-        fig = go.Figure(go.Bar(x=categories, y=disparites, marker=dict(color='skyblue')))
-        fig.update_layout(
-            title="Disparité salariale par catégorie socioprofessionnelle",
-            xaxis_title="Catégorie socioprofessionnelle",
-            yaxis_title="Disparité salariale (%)"
-        )
-        st.plotly_chart(fig)
-
-    elif disparite_choice == disparite_options[1]:
-        # Disparité salariale par tranches d'âge
-        tranches_age = ['18-25 ans', '26-50 ans', 'Plus de 50 ans']
-        disparites_age = [4.286591078294969, 11.745237278240928, 20.02852196164705]
-
-        fig = go.Figure(go.Bar(x=tranches_age, y=disparites_age, marker=dict(color='lightgreen')))
-        fig.update_layout(
-            title="Disparité salariale par tranche d'âge",
-            xaxis_title="Tranche d'âge",
-            yaxis_title="Disparité salariale (%)"
-        )
-        st.plotly_chart(fig)
-
     st.subheader("Comparaison de salaire homme/femme")
 
     # Menu déroulant pour la comparaison des salaires entre hommes et femmes
     comparaison_options = ["Comparaison par catégorie socioprofessionnelle", "Comparaison par tranche d'âge"]
     comparaison_choice = st.selectbox("Sélectionnez une visualisation pour la comparaison des salaires :", comparaison_options)
-    
+
     # Visualisation en fonction du choix de l'utilisateur pour la comparaison des salaires
     if comparaison_choice == comparaison_options[0]:
         # Boîte à moustaches pour chaque catégorie socioprofessionnelle : Hommes et femmes 
@@ -262,24 +229,35 @@ elif page == pages[3]:
         salaires_hommes = salaire[['salaire_cadre_homme', 'salaire_cadre_moyen_homme', 'salaire_employe_homme', 'salaire_travailleur_homme']]
         salaires_femmes = salaire[['salaire_cadre_femme', 'salaire_cadre_moyen_femme', 'salaire_employe_femme', 'salaire_travailleur_femme']]
 
-        fig = go.Figure()
+        fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Boîte à moustaches pour les salaires des hommes
-        for i, col in enumerate(salaires_hommes.columns):
-            fig.add_trace(go.Box(y=salaires_hommes[col], name=categories[i] + " (H)", boxmean='sd', marker_color='blue'))
+        # Boîte à moustaches pour les salaires des hommes (bleu)
+        box_hommes = ax.boxplot([salaires_hommes[col] for col in salaires_hommes.columns], 
+                                positions=[1, 2, 3, 4], widths=0.4, patch_artist=True,
+                                boxprops=dict(facecolor="blue", color="blue"),
+                                medianprops=dict(color="black"))
 
-        # Boîte à moustaches pour les salaires des femmes
-        for i, col in enumerate(salaires_femmes.columns):
-            fig.add_trace(go.Box(y=salaires_femmes[col], name=categories[i] + " (F)", boxmean='sd', marker_color='red'))
+        # Boîte à moustaches pour les salaires des femmes (rouge)
+        box_femmes = ax.boxplot([salaires_femmes[col] for col in salaires_femmes.columns], 
+                                positions=[1.4, 2.4, 3.4, 4.4], widths=0.4, patch_artist=True,
+                                boxprops=dict(facecolor="red", color="red"),
+                                medianprops=dict(color="black"))
 
-        fig.update_layout(
-            title="Comparaison des salaires entre hommes et femmes pour chaque catégorie socioprofessionnelle",
-            xaxis_title="Catégorie socioprofessionnelle",
-            yaxis_title="Salaire",
-            legend=dict(title="Genre"),
-            boxmode='group'  # Group the boxes for comparison
-        )
-        st.plotly_chart(fig)
+        # Ajout de la légende
+        ax.legend([box_hommes["boxes"][0], box_femmes["boxes"][0]], ['Hommes', 'Femmes'], loc='upper right')
+
+        ax.set_title('Comparaison des salaires entre hommes et femmes pour chaque catégorie socioprofessionnelle')
+        ax.set_xlabel('Catégorie socioprofessionnelle')
+        ax.set_ylabel('Salaire')
+
+        # Personnalisation des ticks pour l'axe X
+        plt.xticks([1.2, 2.2, 3.2, 4.2], categories)
+
+        ax.grid(True)
+
+        # Utilisation de mpld3 pour rendre le graphique interactif avec zoom
+        html_graph = mpld3.fig_to_html(fig)
+        st.components.v1.html(html_graph, height=600)
 
     elif comparaison_choice == comparaison_options[1]:
         # Boîte à moustaches pour chaque tranche d'âge : Hommes et femmes 
@@ -287,24 +265,35 @@ elif page == pages[3]:
         salaires_hommes = salaire[['salaire_18-25_homme', 'salaire_26-50_homme', 'salaire_+50_homme']]
         salaires_femmes = salaire[['salaire_18-25_femme', 'salaire_26-50_femme', 'salaire_+50_femme']]
 
-        fig = go.Figure()
+        fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Boîte à moustaches pour les salaires des hommes
-        for i, col in enumerate(salaires_hommes.columns):
-            fig.add_trace(go.Box(y=salaires_hommes[col], name=tranches_age[i] + " (H)", boxmean='sd', marker_color='blue'))
+        # Boîte à moustaches pour les salaires des hommes (bleu)
+        box_hommes = ax.boxplot([salaires_hommes[col] for col in salaires_hommes.columns], 
+                                positions=[1, 2, 3], widths=0.4, patch_artist=True,
+                                boxprops=dict(facecolor="blue", color="blue"),
+                                medianprops=dict(color="black"))
 
-        # Boîte à moustaches pour les salaires des femmes
-        for i, col in enumerate(salaires_femmes.columns):
-            fig.add_trace(go.Box(y=salaires_femmes[col], name=tranches_age[i] + " (F)", boxmean='sd', marker_color='red'))
+        # Boîte à moustaches pour les salaires des femmes (rouge)
+        box_femmes = ax.boxplot([salaires_femmes[col] for col in salaires_femmes.columns], 
+                                positions=[1.4, 2.4, 3.4], widths=0.4, patch_artist=True,
+                                boxprops=dict(facecolor="red", color="red"),
+                                medianprops=dict(color="black"))
 
-        fig.update_layout(
-            title="Comparaison des salaires entre hommes et femmes pour chaque tranche d'âge",
-            xaxis_title="Tranche d'âge",
-            yaxis_title="Salaire",
-            legend=dict(title="Genre"),
-            boxmode='group'
-        )
-        st.plotly_chart(fig)
+        # Ajout de la légende
+        ax.legend([box_hommes["boxes"][0], box_femmes["boxes"][0]], ['Hommes', 'Femmes'], loc='upper right')
+
+        ax.set_title("Comparaison des salaires entre hommes et femmes pour chaque tranche d'âge")
+        ax.set_xlabel("Tranche d'âge")
+        ax.set_ylabel('Salaire')
+
+        # Personnalisation des ticks pour l'axe X
+        plt.xticks([1.2, 2.2, 3.2], tranches_age)
+
+        ax.grid(True)
+
+        # Utilisation de mpld3 pour rendre le graphique interactif avec zoom
+        html_graph = mpld3.fig_to_html(fig)
+        st.components.v1.html(html_graph, height=600)
 
 
 # Page de Modélisation
