@@ -39,10 +39,10 @@ def load_data():
     salaire = pd.read_csv(urls['salaire'], sep=',')
     return etablissement, geographic, salaire
 
-etablissement2 = pd.read_csv('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/base_etablissement_par_tranche_effectif.csv', sep = ';')
-geographic2 = pd.read_csv('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/name_geographic_information.csv', sep = ';')
+etablissement2 = pd.read_csv(urls['etablissement'], sep=',')
+geographic2 = pd.read_csv(urls['geographic'], sep=',')
 
-etablissement, geographic, salaire = load_data()
+etablissement, geographic, salaire, etablissement2, geographic2 = load_data()
 
 # Pré-traitement des données salaire
 new_column_names_salaire = {
