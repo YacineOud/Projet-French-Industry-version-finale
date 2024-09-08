@@ -170,6 +170,18 @@ elif page == pages[1]:
     elif st.session_state.page == "Critères de qualité de données":
         # Afficher les 6 règles de qualité de la donnée
         st.write("Les 6 règles à respecter pour obtenir des données de bonne qualité ")
+        st.write("Les principes de la Data Quality
+                La Data Quality est une manière de gérer les données afin que celles-ci restent viables à travers le temps. 
+                Pour pouvoir considérer que des données sont de bonne qualité, il faut qu’elles respectent les six principes suivants :
+
+                1-La cohérence : les données doivent être au même format. 
+                Si elles sont dans plusieurs bases, ou proviennent de plusieurs sources différentes, elles doivent être cohérentes entre elles.
+                2-La validité : les données doivent être stockées sans erreurs, fautes de frappe ou de syntaxe.
+                3-La complétude : les données doivent être complètes, sans informations manquantes.
+                4-La précision : ça peut paraître évident, mais il faut que les données soient correctes. 
+                Il faut par exemple faire attention à maintenir une bonne précision des données lorsqu’on veut remplacer des valeurs manquantes.
+                5-La disponibilité : les données sont accessibles facilement et rapidement pour les personnes qui en ont besoin.
+                6-L’actualité : les données doivent être mises à jour.")
 # Page de Statistiques
 elif page == pages[2]:
     st.header("📊 Statistiques")
