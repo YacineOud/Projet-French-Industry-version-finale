@@ -533,6 +533,8 @@ elif page == pages[5]:
 # Page de Conclusion
 elif page == pages[6]:
     st.header("📌 Conclusion")
+    
+    
     st.write("Ce projet a été une formidable opportunité de mettre en pratique l'ensemble des compétences acquises durant notre formation.") 
     
     st.write("""Il nous a permis de développer une approche rigoureuse et méthodique de l'analyse de données, 
