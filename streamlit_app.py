@@ -273,6 +273,12 @@ elif page == pages[3]:
         # Boîte à moustaches pour les salaires des femmes
         ax.boxplot([salaires_femmes[col] for col in salaires_femmes.columns], positions=[1.4, 2.4, 3.4, 4.4], widths=0.4, labels=salaires_hommes.columns, boxprops=dict(color="red"))
 
+        # Ajouter la légende avec les bonnes couleurs
+        from matplotlib.lines import Line2D
+        legend_elements = [Line2D([0], [0], color="blue", lw=2, label="Hommes"),
+                           Line2D([0], [0], color="red", lw=2, label="Femmes")]
+        ax.legend(handles=legend_elements, loc="upper right")
+
         ax.set_title('Comparaison des salaires entre hommes et femmes pour chaque catégorie socioprofessionnelle')
         ax.set_xlabel('Catégorie socioprofessionnelle')
         ax.set_ylabel('Salaire')
@@ -293,13 +299,18 @@ elif page == pages[3]:
         # Boîte à moustaches pour les salaires des femmes
         ax.boxplot([salaires_femmes[col] for col in salaires_femmes.columns], positions=[1.4, 2.4, 3.4], widths=0.4, labels=salaires_hommes.columns, boxprops=dict(color="red"))
 
+        # Ajouter la légende avec les bonnes couleurs
+        from matplotlib.lines import Line2D
+        legend_elements = [Line2D([0], [0], color="blue", lw=2, label="Hommes"),
+                           Line2D([0], [0], color="red", lw=2, label="Femmes")]
+        ax.legend(handles=legend_elements, loc="upper right")
+
         ax.set_title("Comparaison des salaires entre hommes et femmes pour chaque tranche d'âge")
         ax.set_xlabel("Tranche d'âge")
         ax.set_ylabel('Salaire')
         plt.xticks([1.2, 2.2, 3.2], ['18-25 ans', '26-50 ans', 'Plus de 50 ans'])
         ax.grid(True)
         st.pyplot(fig)
-
 
 # Page de Modélisation
 elif page == pages[4]:
