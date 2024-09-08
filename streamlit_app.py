@@ -169,7 +169,7 @@ elif page == pages[1]:
         st.image('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/Population.jpg', use_column_width=True)
     elif st.session_state.page == "6Regles":
         # Afficher les 6 règles de qualité de la donnée
-        st.write("Les 6 règles à respecter pour obtenir des données de bonne qualité ")
+        st.subheader("Les 6 règles à respecter pour obtenir des données de bonne qualité : ")
         st.write("""La Data Quality est une manière de gérer les données afin que celles-ci restent viables à travers le temps. 
                 Pour pouvoir considérer que des données sont de bonne qualité, il faut qu’elles respectent les six principes suivants :""")
         st.write(""" 1-La cohérence : les données doivent être au même format. 
