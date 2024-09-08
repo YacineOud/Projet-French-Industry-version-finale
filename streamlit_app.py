@@ -6,7 +6,7 @@ import seaborn as sns
 import io
 import warnings
 import plotly.express as px
-import mpld3
+import plotly.graph_objects as go
 
 # Rajout le 29/08/24 pour la partie Statistiques
 import pylab
@@ -229,35 +229,24 @@ elif page == pages[3]:
         salaires_hommes = salaire[['salaire_cadre_homme', 'salaire_cadre_moyen_homme', 'salaire_employe_homme', 'salaire_travailleur_homme']]
         salaires_femmes = salaire[['salaire_cadre_femme', 'salaire_cadre_moyen_femme', 'salaire_employe_femme', 'salaire_travailleur_femme']]
 
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig = go.Figure()
 
-        # Boîte à moustaches pour les salaires des hommes (bleu)
-        box_hommes = ax.boxplot([salaires_hommes[col] for col in salaires_hommes.columns], 
-                                positions=[1, 2, 3, 4], widths=0.4, patch_artist=True,
-                                boxprops=dict(facecolor="blue", color="blue"),
-                                medianprops=dict(color="black"))
+        # Boîte à moustaches pour les salaires des hommes
+        for i, col in enumerate(salaires_hommes.columns):
+            fig.add_trace(go.Box(y=salaires_hommes[col], name=categories[i] + " (H)", boxmean='sd', marker_color='blue'))
 
-        # Boîte à moustaches pour les salaires des femmes (rouge)
-        box_femmes = ax.boxplot([salaires_femmes[col] for col in salaires_femmes.columns], 
-                                positions=[1.4, 2.4, 3.4, 4.4], widths=0.4, patch_artist=True,
-                                boxprops=dict(facecolor="red", color="red"),
-                                medianprops=dict(color="black"))
+        # Boîte à moustaches pour les salaires des femmes
+        for i, col in enumerate(salaires_femmes.columns):
+            fig.add_trace(go.Box(y=salaires_femmes[col], name=categories[i] + " (F)", boxmean='sd', marker_color='red'))
 
-        # Ajout de la légende
-        ax.legend([box_hommes["boxes"][0], box_femmes["boxes"][0]], ['Hommes', 'Femmes'], loc='upper right')
-
-        ax.set_title('Comparaison des salaires entre hommes et femmes pour chaque catégorie socioprofessionnelle')
-        ax.set_xlabel('Catégorie socioprofessionnelle')
-        ax.set_ylabel('Salaire')
-
-        # Personnalisation des ticks pour l'axe X
-        plt.xticks([1.2, 2.2, 3.2, 4.2], categories)
-
-        ax.grid(True)
-
-        # Utilisation de mpld3 pour rendre le graphique interactif avec zoom
-        html_graph = mpld3.fig_to_html(fig)
-        st.components.v1.html(html_graph, height=600)
+        fig.update_layout(
+            title="Comparaison des salaires entre hommes et femmes pour chaque catégorie socioprofessionnelle",
+            xaxis_title="Catégorie socioprofessionnelle",
+            yaxis_title="Salaire",
+            legend=dict(title="Genre"),
+            boxmode='group'  # Group the boxes for comparison
+        )
+        st.plotly_chart(fig)
 
     elif comparaison_choice == comparaison_options[1]:
         # Boîte à moustaches pour chaque tranche d'âge : Hommes et femmes 
@@ -265,35 +254,24 @@ elif page == pages[3]:
         salaires_hommes = salaire[['salaire_18-25_homme', 'salaire_26-50_homme', 'salaire_+50_homme']]
         salaires_femmes = salaire[['salaire_18-25_femme', 'salaire_26-50_femme', 'salaire_+50_femme']]
 
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig = go.Figure()
 
-        # Boîte à moustaches pour les salaires des hommes (bleu)
-        box_hommes = ax.boxplot([salaires_hommes[col] for col in salaires_hommes.columns], 
-                                positions=[1, 2, 3], widths=0.4, patch_artist=True,
-                                boxprops=dict(facecolor="blue", color="blue"),
-                                medianprops=dict(color="black"))
+        # Boîte à moustaches pour les salaires des hommes
+        for i, col in enumerate(salaires_hommes.columns):
+            fig.add_trace(go.Box(y=salaires_hommes[col], name=tranches_age[i] + " (H)", boxmean='sd', marker_color='blue'))
 
-        # Boîte à moustaches pour les salaires des femmes (rouge)
-        box_femmes = ax.boxplot([salaires_femmes[col] for col in salaires_femmes.columns], 
-                                positions=[1.4, 2.4, 3.4], widths=0.4, patch_artist=True,
-                                boxprops=dict(facecolor="red", color="red"),
-                                medianprops=dict(color="black"))
+        # Boîte à moustaches pour les salaires des femmes
+        for i, col in enumerate(salaires_femmes.columns):
+            fig.add_trace(go.Box(y=salaires_femmes[col], name=tranches_age[i] + " (F)", boxmean='sd', marker_color='red'))
 
-        # Ajout de la légende
-        ax.legend([box_hommes["boxes"][0], box_femmes["boxes"][0]], ['Hommes', 'Femmes'], loc='upper right')
-
-        ax.set_title("Comparaison des salaires entre hommes et femmes pour chaque tranche d'âge")
-        ax.set_xlabel("Tranche d'âge")
-        ax.set_ylabel('Salaire')
-
-        # Personnalisation des ticks pour l'axe X
-        plt.xticks([1.2, 2.2, 3.2], tranches_age)
-
-        ax.grid(True)
-
-        # Utilisation de mpld3 pour rendre le graphique interactif avec zoom
-        html_graph = mpld3.fig_to_html(fig)
-        st.components.v1.html(html_graph, height=600)
+        fig.update_layout(
+            title="Comparaison des salaires entre hommes et femmes pour chaque tranche d'âge",
+            xaxis_title="Tranche d'âge",
+            yaxis_title="Salaire",
+            legend=dict(title="Genre"),
+            boxmode='group'
+        )
+        st.plotly_chart(fig)
 
 
 # Page de Modélisation
