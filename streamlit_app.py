@@ -234,7 +234,7 @@ elif page == pages[2]:
     matrix_corr.update_layout(title='Matrice de corrélation des salaires',
                           xaxis=dict(title='Variables'),
                           yaxis=dict(title='Variables'),
-                          width=2500,
+                          width=700,
                           height=500)
 
 # Affichage du graphique avec Streamlit
