@@ -76,7 +76,7 @@ if page == pages[1]:
         st.session_state.page = "Etablissement"
 
     # Sélection de la page de données
-    data_pages = ["Critères de qualité de données","Etablissement", "Geographic", "Salaire", "Population"]
+    data_pages = ["6Regles","Etablissement", "Geographic", "Salaire", "Population"]
     # st.sidebar.markdown("### Choix des données")
     st.session_state.page = st.sidebar.selectbox("Sélection du Dataframe", data_pages, index=data_pages.index(st.session_state.page))
 
@@ -167,7 +167,7 @@ elif page == pages[1]:
         st.write("Pas d'import du dataframe Population, ce jeu de données n'est pas utilisé dans notre projet.")
         # Ajouter un lien vers l'image population.jpg
         st.image('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/Population.jpg', use_column_width=True)
-    elif st.session_state.page == "Critères de qualité de données":
+    elif st.session_state.page == "6Regles":
         # Afficher les 6 règles de qualité de la donnée
         st.write("Les 6 règles à respecter pour obtenir des données de bonne qualité ")
         st.write("Les principes de la Data Quality
