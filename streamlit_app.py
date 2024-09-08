@@ -429,7 +429,7 @@ elif page == pages[3]:
     map.drawcoastlines()
     map.drawcountries()
     map.drawmapboundary()
-    map.draw(map.drawrivers())
+    #map.drawrivers()
     
     lons = full_data["longitude"].values.tolist()
     lats = full_data["latitude"].values.tolist()
