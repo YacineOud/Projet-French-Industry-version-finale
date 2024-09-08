@@ -344,8 +344,8 @@ elif page == pages[3]:
     }
     
     etablissement2 = etablissement2.rename(columns=new_column_names_etab)
-    etablissement2['CODGEO'] = etablissement2['CODGEO'].str.lstrip('0')
-    etablissement2['CODGEO'] = etablissement2['CODGEO'].str.replace('A', '0').str.replace('B', '0')
+    etablissement2['CODGEO'] = etablissement2['CODGEO'].str.lstrip('0').str.replace('A', '0').str.replace('B', '0')
+
     
     geographic2 = geographic2.rename(columns={'code_insee': 'CODGEO'})
     geographic2['CODGEO'] = geographic2['CODGEO'].astype(str)
