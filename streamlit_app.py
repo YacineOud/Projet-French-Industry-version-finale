@@ -422,10 +422,9 @@ elif page == pages[4]:
             
         st.markdown("""
                     ##### Conclusions :         
-                    - Distributions relativement centrées autour de zéro
-                    - Distribution normale des résidus
-                    - Très peu de points au dela de +/-2
-                    - Les résultats obtenus sont plutot uniformes pour toute la plage des données
+                    - Distribution normale des résidus et centré autour de zéro
+                    - Très peu résidus au dela de +/- 1,5
+                    - On constate que le modèle a plus de mal avec les valeurs au dessus de 24.
                     """)
     
     with st.expander("Features d'importance") :
