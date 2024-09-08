@@ -105,7 +105,7 @@ if page == pages[1]:
         st.session_state.page = "Etablissement"
 
     # Sélection de la page de données
-    data_pages = ["6Regles","Etablissement", "Geographic", "Salaire", "Population"]
+    data_pages = ["Les 6 Règles","Etablissement", "Geographic", "Salaire", "Population"]
     # st.sidebar.markdown("### Choix des données")
     st.session_state.page = st.sidebar.selectbox("Sélection du Dataframe", data_pages, index=data_pages.index(st.session_state.page))
 
@@ -345,7 +345,7 @@ elif page == pages[3]:
     
     # Titre de la carte
     st.subheader("Carte des Bassins d'Entreprises en France")
-    st.image('https://ibb.co/s31g722', use_column_width=True)
+    st.image('https://github.com/YacineOud/Projet-French-Industry-version-finale/blob/638ec5b6b6fbacdf48cf4986653b867239b456ed/data/carte%20bassin.png', use_column_width=True)
 
     
 
