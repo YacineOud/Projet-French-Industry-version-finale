@@ -206,7 +206,7 @@ elif page == pages[1]:
         afficher_info(salaire, "Salaire")
     elif st.session_state.page == "Population":
         # Afficher un message pour la page Population
-        st.write("Pas d'import du dataframe Population, ce jeu de données n'est pas utilisé dans notre projet.")
+        st.write("#### Pas d'import du dataframe Population, ce jeu de données est très peu utilisé dans notre projet.")
         # Ajouter un lien vers l'image population.jpg
         st.image('https://raw.githubusercontent.com/ChristopheMontoriol/French_Industry_Janv24/main/data/Population.jpg', use_column_width=True)
     
