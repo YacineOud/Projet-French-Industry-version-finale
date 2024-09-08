@@ -238,7 +238,7 @@ elif page == pages[2]:
                           height=800)
 
 # Affichage du graphique avec Streamlit
-    st.plotly_chart(matrix_corr)
+    st.plotly_chart(matrix_corr,use_container_width = True)
 
 
 # Page de Data Visualisation
