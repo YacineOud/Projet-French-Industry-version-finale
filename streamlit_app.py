@@ -230,11 +230,11 @@ elif page == pages[2]:
     matrix_corr = px.imshow(salaire_corr.corr().round(2), text_auto=True)
 
 # Mise en forme des annotations avec deux chiffres après la virgule
-    matrix_corr.update_traces(hoverongaps=True)
+    matrix_corr.update_traces(hoverongaps=False)
     matrix_corr.update_layout(title='Matrice de corrélation des salaires',
                           xaxis=dict(title='Variables'),
                           yaxis=dict(title='Variables'),
-                          width=5000,
+                          width=10000,
                           height=700)
 
 # Affichage du graphique avec Streamlit
