@@ -331,6 +331,7 @@ elif page == pages[3]:
     
     # Renommer les colonnes du dataframe etablissement
     new_column_names_etab = {
+        'CODGEO': 'CODGEO',
         'E14TST': 'Nbre_etab',
         'E14TS0ND': 'Nbre_etab_0_x',
         'E14TS1': 'Nbre_etab_1-5',
@@ -348,7 +349,7 @@ elif page == pages[3]:
 
 
     
-        st.write(etablissement2.columns)
+    st.write(etablissement2.columns)
     etablissement2['CODGEO'] = etablissement2['CODGEO'].str.lstrip('0').str.replace('A', '0').str.replace('B', '0')
 
     
