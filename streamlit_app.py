@@ -344,7 +344,11 @@ elif page == pages[3]:
     }
     
     etablissement2 = etablissement2.rename(columns=new_column_names_etab)
-    st.write(etablissement2.columns)
+
+
+
+    
+        st.write(etablissement2.columns)
     etablissement2['CODGEO'] = etablissement2['CODGEO'].str.lstrip('0').str.replace('A', '0').str.replace('B', '0')
 
     
