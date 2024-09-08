@@ -75,6 +75,23 @@ new_column_names_salaire = {
 salaire = salaire.rename(columns=new_column_names_salaire)
 salaire['CODGEO'] = salaire['CODGEO'].str.lstrip('0').str.replace('A', '0').str.replace('B', '0')
 
+
+# Renommer les colonnes du dataframe etablissement
+new_column_names_etab = {
+        'CODGEO': 'CODGEO',
+        'E14TST': 'Nbre_etab',
+        'E14TS0ND': 'Nbre_etab_0_x',
+        'E14TS1': 'Nbre_etab_1-5',
+        'E14TS6': 'Nbre_etab_6-9',
+        'E14TS10': 'Nbre_etab_10-19',
+        'E14TS20': 'Nbre_etab_20-49',
+        'E14TS50': 'Nbre_etab_50-99',
+        'E14TS100': 'Nbre_etab_100-199',
+        'E14TS200': 'Nbre_etab_200-499',
+        'E14TS500': 'Nbre_etab_+500',
+}
+etablissement2 = etablissement2.rename(columns=new_column_names_etab)
+
 # Configuration de la barre latérale
 st.sidebar.title("Sommaire")
 pages = ["👋 Intro", "🔍 Exploration des données", "📌Statistiques","📊 Data Visualisation", "🧩 Modélisation", "🔮 Prédiction", "📌 Conclusion"]
@@ -328,23 +345,6 @@ elif page == pages[3]:
     # Titre de la carte
     st.subheader("Carte des Bassins d'Entreprises en France")
     
-    
-    # Renommer les colonnes du dataframe etablissement
-    new_column_names_etab = {
-        'CODGEO': 'CODGEO',
-        'E14TST': 'Nbre_etab',
-        'E14TS0ND': 'Nbre_etab_0_x',
-        'E14TS1': 'Nbre_etab_1-5',
-        'E14TS6': 'Nbre_etab_6-9',
-        'E14TS10': 'Nbre_etab_10-19',
-        'E14TS20': 'Nbre_etab_20-49',
-        'E14TS50': 'Nbre_etab_50-99',
-        'E14TS100': 'Nbre_etab_100-199',
-        'E14TS200': 'Nbre_etab_200-499',
-        'E14TS500': 'Nbre_etab_+500',
-        }
-    
-    etablissement3 = etablissement2.rename(columns=new_column_names_etab)
 
 
 
