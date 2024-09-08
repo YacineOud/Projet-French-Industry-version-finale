@@ -533,7 +533,7 @@ elif page == pages[5]:
 # Page de Conclusion
 elif page == pages[6]:
     st.header("📌 Conclusion")
-    st.image('https://stock.adobe.com/fr/search?k=%22merci+beaucoup%22', use_column_width=True)
+    st.image('data/merci.jpg', use_column_width=True)
     
     
     st.write("Ce projet a été une formidable opportunité de mettre en pratique l'ensemble des compétences acquises durant notre formation.") 
