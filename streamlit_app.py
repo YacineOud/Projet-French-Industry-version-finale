@@ -173,7 +173,6 @@ elif page == pages[1]:
         st.write("Les principes de la Data Quality")
         st.write("""La Data Quality est une manière de gérer les données afin que celles-ci restent viables à travers le temps. 
                 Pour pouvoir considérer que des données sont de bonne qualité, il faut qu’elles respectent les six principes suivants :
-
                 1-La cohérence : les données doivent être au même format. 
                 Si elles sont dans plusieurs bases, ou proviennent de plusieurs sources différentes, elles doivent être cohérentes entre elles.
                 2-La validité : les données doivent être stockées sans erreurs, fautes de frappe ou de syntaxe.
