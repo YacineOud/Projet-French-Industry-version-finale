@@ -322,7 +322,7 @@ elif page == pages[3]:
         st.pyplot(fig)
 
 
-
+    st.write(etablissement2.columns)
 
     
     # Titre de la carte
