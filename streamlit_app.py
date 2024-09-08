@@ -347,7 +347,7 @@ elif page == pages[3]:
     
 
 
-
+    st.write(salaire.columns)
     
     st.write(etablissement2.columns)
     
