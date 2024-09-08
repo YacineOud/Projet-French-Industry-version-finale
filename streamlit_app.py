@@ -410,7 +410,7 @@ elif page == pages[4]:
                     """)
     
         st.markdown("""Notre choix s'est donc porté sur le modèle :""")
-        st.markdown("""##### Forêt aléatoire avec discrétisation.""")
+        st.markdown("""##### Forêt aléatoire avec discrétisation""")
 
     with st.expander("Evaluation graphique du modèle") :
         st.subheader("Dispersion des résidus & distributions des résidus")
