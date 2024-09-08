@@ -409,9 +409,9 @@ elif page == pages[4]:
                     distributions des résidus.
                     """)
     
-        st.write("#### Notre choix s'est donc porté sur le modèle :
-                Forêt aléatoire avec discrétisation.
-                ")
+        st.markdown(""" Notre choix s'est donc porté sur le modèle :
+                    ##### Forêt aléatoire avec discrétisation.
+                    """)
 
 
     with st.expander("Evaluation graphique du modèle") :
