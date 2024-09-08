@@ -351,7 +351,7 @@ elif page == pages[3]:
 elif page == pages[4]:
     st.header("🧩 Modélisation")
     st.subheader("Objectif")
-    st.write("Prédire le salaire net moyen en fonction des features.")
+    st.write("Prédire le salaire net moyen en fonction des autres features.")
     
     with st.expander("Modèles étudiés") :
         st.subheader("Liste des modèles")
