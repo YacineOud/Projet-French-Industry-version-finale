@@ -342,7 +342,7 @@ elif page == pages[3]:
         'E14TS100': 'Nbre_etab_100-199',
         'E14TS200': 'Nbre_etab_200-499',
         'E14TS500': 'Nbre_etab_+500',
-    }
+        }
     
     etablissement3 = etablissement2.rename(columns=new_column_names_etab)
 
