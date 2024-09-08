@@ -37,10 +37,11 @@ def load_data():
     etablissement = pd.read_csv(urls['etablissement'], sep=',')
     geographic = pd.read_csv(urls['geographic'], sep=',')
     salaire = pd.read_csv(urls['salaire'], sep=',')
+    etablissement2 = pd.read_csv(urls['etablissement'], sep=',')
+    geographic2 = pd.read_csv(urls['geographic'], sep=',')
     return etablissement, geographic, salaire
 
-etablissement2 = pd.read_csv(urls['etablissement'], sep=',')
-geographic2 = pd.read_csv(urls['geographic'], sep=',')
+
 
 etablissement, geographic, salaire, etablissement2, geographic2 = load_data()
 
