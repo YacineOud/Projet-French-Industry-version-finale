@@ -232,7 +232,7 @@ elif page == pages[2]:
 
 # Mise en forme des annotations avec deux chiffres après la virgule
     matrix_corr.update_traces(hoverongaps=False)
-    matrix_corr.update_layout(#### title='Matrice de corrélation des salaires',
+    matrix_corr.update_layout(title='Matrice de corrélation des salaires',
                           xaxis=dict(title='Variables'),
                           yaxis=dict(title='Variables'),
                           width=1000,
