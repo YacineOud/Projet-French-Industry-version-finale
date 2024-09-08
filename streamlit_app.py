@@ -410,7 +410,7 @@ elif page == pages[4]:
                     """)
     
         st.write("#### Notre choix s'est donc porté sur le modèle : 
-        Forêt aléatoire avec discrétisation.")
+                    Forêt aléatoire avec discrétisation.")
 
 
     with st.expander("Evaluation graphique du modèle") :
