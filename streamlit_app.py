@@ -410,7 +410,7 @@ elif page == pages[4]:
                     """)
     
         st.markdown("""Notre choix s'est donc porté sur le modèle :""")
-        st.markdown("""#####Forêt aléatoire avec discrétisation.
+        st.markdown("""#####Forêt aléatoire avec discrétisation.""")
 
     with st.expander("Evaluation graphique du modèle") :
         st.subheader("Dispersion des résidus & distributions des résidus")
@@ -534,10 +534,10 @@ elif page == pages[5]:
 # Page de Conclusion
 elif page == pages[6]:
     st.header("📌 Conclusion")
-    st.write("""Ce projet a été une formidable opportunité de mettre en pratique l ensemble des compétences acquises durant notre formation. 
+    st.write("""Ce projet a été une formidable opportunité de mettre en pratique l'ensemble des compétences acquises durant notre formation. 
     Il nous a permis de développer une approche rigoureuse et méthodique de l analyse de données, 
     de perfectionner nos compétences techniques, 
-    et d améliorer nos capacités à transformer des données brutes en informations exploitables et pertinentes.""")
+    et d'améliorer nos capacités à transformer des données brutes en informations exploitables et pertinentes.""")
     st.write("Nous souhaitons remercier chaleureusement notre mentor, Tarik Anouar, pour nous avoir aidé sur ce projet.")   
 
 
