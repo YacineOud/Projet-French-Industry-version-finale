@@ -344,12 +344,12 @@ elif page == pages[3]:
         'E14TS500': 'Nbre_etab_+500',
     }
     
-    etablissement2 = etablissement2.rename(columns=new_column_names_etab)
+    etablissement3 = etablissement2.rename(columns=new_column_names_etab)
 
 
 
     
-    st.write(etablissement2.columns)
+    st.write(etablissement3.columns)
     
 
 
