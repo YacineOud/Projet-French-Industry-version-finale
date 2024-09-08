@@ -121,5 +121,5 @@ websocket-client==1.8.0
 wheel==0.43.0
 win-inet-pton==1.1.0
 basemap-data-hires
-basemap
-matplotlib
+basemap==1.4.1
+matplotlib==3.7.1
