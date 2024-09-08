@@ -367,11 +367,11 @@ elif page == pages[4]:
         st.write("""
                     Pour chaque modèle appliqué, nous avons suivi les étapes suivantes :
                     1. Instanciation du modèle.
-                    2. Entrainement du modèle sur l'ensemble du jeu d'entraînement X_train et y_train.
-                    3. Prédictions sur l'ensemble du jeu de test X_test et y_test.
+                    2. Séparation du jeu de données en un jeu d'entrainement et un jeu de test.
+                    3. Entrainement du modèle avec le jeu d'entrainement puis prédictions avec le jeu de test.
                     4. Evaluation de la performance des modèles en utilisant les métriques appropriées.
                     5. Interprétation des coefficients pour comprendre l'impact de chaque caractéristique sur la variable cible.
-                    6. Optimisation du modèle : variation des paramètres, sélection des features utilisées, discrétisation des valeurs.
+                    6. Optimisation du modèle : variation des paramètres(max_depth), sélection des features utilisées ou encore la discrétisation des données.
                     7. Visualisation et analyse des résultats.
                 """)
     with st.expander("Modèle retenu") :
@@ -399,15 +399,17 @@ elif page == pages[4]:
         st.subheader("Synthèse des métriques de performance")
         st.table(styled_tab)
         st.markdown("""
-                    ##### Choix du modèle :
-                    - Les modèles de régression linaires 1 & 2 font de l'overfitting même après optimisation.                     
+                    ##### Choix du modèle par élimination :
+                    - Les modèles N°4 et N°5 font de l'overfitting même après optimisation.                     
                     Ils sont donc disqualifiés.
-                    - Critères de choix pour le modèle Forêt aléatoire :                    
-                    - Les R² ne montrent pas d'overfitting et sont proches de 0.9.                                
-                    - Les erreurs restent acceptables.
+                    - Le modèle N°0 fait également de l'overfitting.                   
+                    - Le modèle N°1 dispose du plus grand écart entre le R² train et R² test.                             
+                    - Le modèle N°2 a les erreurs les plus faibles mais ses valeurs de R² sont
+                    plus importantes. Graphiquement il dispose d'une moins bonne dispersion et 
+                    distributions des résidus.
                     """)
     
-        st.write("#### Modèle retenue : Forêt aléatoire avec discrétisation.")
+        st.write("#### Notre choix s'est donc porté sur le modèle : Forêt aléatoire avec discrétisation.")
 
 
     with st.expander("Evaluation graphique du modèle") :
