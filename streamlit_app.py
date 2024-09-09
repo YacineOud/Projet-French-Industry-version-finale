@@ -343,7 +343,7 @@ elif page == pages[3]:
         st.pyplot(fig)
     
     # Titre de la carte
-    st.subheader("Carte des Bassins d'Entreprises en France")
+    st.subheader("Carte des bassins d'entreprises en France")
     st.image('data/carte bassin.png', use_column_width=True)
 
     
